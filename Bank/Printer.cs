@@ -6,22 +6,12 @@ namespace Bank
 {
     class Printer
     {
-        public void Print(SavingsAccount account)
+        public void Print(Account account)
         {
+            Console.WriteLine("Typ: {0}", account.TypeName());
             Console.WriteLine("Dane konta: {0}", account.AccountNumber);
             Console.WriteLine("Saldo: {0}zł", account.Balance);
-            Console.WriteLine("Imię właściciela: {0}", account.FirstName);
-            Console.WriteLine("Nazwisko właściciela: {0}", account.LastName);
-            Console.WriteLine("PESEL właściciela: {0}", account.Pesel);
-            Console.WriteLine();
-        }
-
-        public void Print(BillingAccount account)
-        {
-            Console.WriteLine("Dane konta: {0}", account.AccountNumber);
-            Console.WriteLine("Saldo: {0}zł", account.Balance);
-            Console.WriteLine("Imię właściciela: {0}", account.FirstName);
-            Console.WriteLine("Nazwisko właściciela: {0}", account.LastName);
+            Console.WriteLine("Imię i nazwisko właściciela: {0}", account.GetFullName());
             Console.WriteLine("PESEL właściciela: {0}", account.Pesel);
             Console.WriteLine();
         }

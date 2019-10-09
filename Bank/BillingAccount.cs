@@ -4,31 +4,17 @@ using System.Text;
 
 namespace Bank
 {
-    class BillingAccount
+    class BillingAccount:Account
     {
-        public string AccountNumber;
-        public decimal Balance;
-        public string FirstName;
-        public string LastName;
-        public long Pesel;
-
         public BillingAccount(string accountNumber, decimal balance, string firstName, string lastName, long pesel)
+            : base(accountNumber, balance, firstName, lastName, pesel)
         {
-            AccountNumber = accountNumber;
-            Balance = balance;
-            FirstName = firstName;
-            LastName = lastName;
-            Pesel = pesel;
         }
 
-        public string GetFullName()
+        public override string TypeName()
         {
-            return string.Format("{0} {1}", FirstName, LastName);
+            return "Rachunkowe";
         }
 
-        public string GetBalance()
-        {
-            return string.Format("{0}zł", Balance);
-        }
     }
 }
