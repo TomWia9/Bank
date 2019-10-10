@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Bank
 {
@@ -6,17 +7,18 @@ namespace Bank
     {
         static void Main(string[] args)
         {
+            AccountsManager manager = new AccountsManager();
 
-            Account savingsAccount = new SavingsAccount(0,"Tomasz", "Wiatrowski", 92010133333);
-            Account savingsAccount1 = new SavingsAccount(1,"Karolina", "Chruścińska", 92010144444);
-            Account billingAccount = new BillingAccount(2,"Tomasz", "Wiatrowski", 92010133333);
-            IPrinter printer = new Printer();
-            IPrinter smallerPrinter = new SmallerPrinter();
-            printer = smallerPrinter;
+            manager.CreateBillingAccount("Tomasz", "Wiatrowski", 1234567890);
+            manager.CreateSavingsAccount("Tomasz", "Wiatrowski", 1234567890);
+            manager.CreateSavingsAccount("Karolina", "Chruścińska", 0987654321);
 
-            printer.Print(savingsAccount);
-            printer.Print(savingsAccount1);
-            printer.Print(billingAccount);
+            IList<Account> accounts = (IList<Account>)manager.GetAllAccounts();
+
+            Printer printer = new Printer();
+
+            printer.Print(accounts[0]);
+            printer.Print(accounts[2]);
 
             Console.ReadKey();
         }
