@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Bank
 {
@@ -41,7 +39,7 @@ namespace Bank
 
             return account;
         }
-        
+
         public BillingAccount CreateBillingAccount(string firstName, string lastName, long pesel)
         {
             int id = GenerateId();
@@ -52,5 +50,46 @@ namespace Bank
 
             return account;
         }
+
+        public IEnumerable<Account> GetAllAccountsFor(string firstName, string lastName, long pesel)
+        {
+            return _accounts.Where(x => x.FirstName == firstName && x.LastName == lastName && x.Pesel == pesel);
+        }
+
+        public Account GetAccount(string AccountNo)
+        {
+            return _accounts.Single(x => x.AccountNumber == AccountNo);
+        }
+
+        public IEnumerable<string> ListOfCustomers()
+        {
+            return _accounts.Select(a => string.Format("Imię: {0} | Nazwisko: {1} | PESEL: {2}", a.FirstName, a.LastName, a.Pesel)).Distinct();
+        }
+
+        public void CloseMonth()
+        {
+            foreach (SavingsAccount account in _accounts.Where(x=>x is SavingsAccount))
+            {
+                account.AddInterest(0.04M);
+            }
+
+            foreach (BillingAccount account in _accounts.Where(x => x is BillingAccount))
+            {
+                account.TakeCharge(5.0M);
+            }
+        }
+
+        public void AddMoney(string accountNo, decimal value)
+        {
+            Account account = GetAccount(accountNo);
+            account.ChangeBalance(value);
+        }
+
+        public void TakeMoney(string accountNo, decimal value)
+        {
+            Account account = GetAccount(accountNo);
+            account.ChangeBalance(-value);
+        }
+
     }
 }

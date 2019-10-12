@@ -16,5 +16,10 @@ namespace Bank
             return "Rachunkowe";
         }
 
+        public void TakeCharge(decimal value)
+        {
+            Balance -= value;
+        }
+
     }
 }
